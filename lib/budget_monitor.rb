@@ -1,5 +1,6 @@
 require 'sinatra'
 require_relative './models/transaction'
+require_relative './routes/transaction'
 
 class BudgetMonitor < Sinatra::Application
 
@@ -7,10 +8,6 @@ class BudgetMonitor < Sinatra::Application
     'Hello world'
   end
 
-  get '/transaction' do
-    Transaction.all.to_json
-  end
-
-  %w{models}.each {|dir| Dir.glob("./#{dir}/*.rb", &method(:require_relative))}
+  Sequel.default_timezone = :utc
   run! if app_file == $0
 end
