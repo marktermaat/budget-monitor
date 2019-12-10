@@ -1,0 +1,8 @@
+- Clean up controllers
+
+
+Links:
+ - Example: https://github.com/idanci/sinatra-sequel-poc
+ - Example: https://github.com/rstacruz/sinatra-template
+ - Example: https://www.toptal.com/ruby/api-with-sinatra-and-sequel-ruby-tutorial
+ - Example: https://github.com/gSchool/sinatra-sequel-example/blob/master/config.ru
