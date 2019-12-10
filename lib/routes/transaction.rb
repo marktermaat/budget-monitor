@@ -8,15 +8,9 @@ class BudgetMonitor < Sinatra::Application
   end
 
   post '/transaction' do
-    begin
-      body = request.body.read
-      transaction = JSON.parse(body)
-      Transaction.insert(transaction)
-    rescue JSON::ParserError => e
-      halt 400, 'Parse error'
-    rescue => e
-      puts e.message
-    end
+    body = request.body.read
+    transaction = JSON.parse(body)
+    Transaction.insert(transaction)
     ''
   end
 end
