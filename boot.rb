@@ -6,6 +6,7 @@ DB = Sequel.connect(ENV["DATABASE_URL"] || default_connection_string)
 Sequel.extension :migration, :core_extensions
 Sequel::Migrator.run(DB, './migrations', :use_transactions=>true)
 Sequel.default_timezone = :utc
+Sequel::Model.plugin :json_serializer
 
 Dir[File.expand_path('../lib/**/*.rb', __FILE__)].each do |file|
   dirname = File.dirname(file)

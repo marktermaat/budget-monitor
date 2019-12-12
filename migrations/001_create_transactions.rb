@@ -1,7 +1,7 @@
 Sequel.migration do
   up do
     create_table(:transactions) do
-      primary_key :id
+      String :id, primary_key: true
       DateTime :timestamp, null: false
       String :description
       String :sign, size: 5
