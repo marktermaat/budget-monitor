@@ -1,3 +1,5 @@
+require 'tempfile'
+
 # table [Cucumber::MultilineArgument::DataTable] Input table
 def to_transactions(table)
   table.rows.map do |row|
@@ -23,7 +25,17 @@ end
 
 def post_transaction(transaction)
   post '/transaction', transaction.to_json
-  @post_result = JSON.parse(last_response.body)
+  @post_result = last_response.body
+end
+
+def post_transaction_csv(content)
+  file = Tempfile.new('csv_transaction')
+  file.write(content)
+  file.rewind
+  post '/transaction/csv', file: Rack::Test::UploadedFile.new(file.path)
+  file.close
+  file.unlink
+  @post_result = last_response.body
 end
 
 def get_transactions

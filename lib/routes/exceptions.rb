@@ -7,6 +7,10 @@ class BudgetMonitor < Sinatra::Application
     halt 400, 'Parse error'
   end
 
+  error Sequel::ValidationFailed do |e|
+    halt 400, e.message
+  end
+
   error do |e|
     halt 500, "Something went wrong: #{e.inspect}"
   end

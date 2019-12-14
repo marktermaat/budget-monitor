@@ -1,10 +1,16 @@
+require 'digest'
+
 class Transaction < Sequel::Model
   plugin :validation_helpers
 
+  def before_save
+    super
+    self.id = Digest::MD5.hexdigest("#{timestamp.utc.iso8601}#{description}#{amount}")
+  end
+
   def validate
     super
-
-    validates_presence [:id, :timestamp, :description, :sign, :amount]
+    validates_presence [:timestamp, :description, :sign, :amount]
   end
 
   def to_object

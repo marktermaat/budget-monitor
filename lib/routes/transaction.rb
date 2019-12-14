@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'json'
-require 'digest'
 
 class BudgetMonitor < Sinatra::Application
   get '/transaction' do
@@ -10,7 +9,6 @@ class BudgetMonitor < Sinatra::Application
   post '/transaction' do
     data = JSON.parse(request.body.read)
     transaction = Transaction.new(data)
-    transaction.id = Digest::MD5.hexdigest("#{data['timestamp']}#{data['description']}#{data['amount']}")
     if (transaction.valid?)
       status 200
       transaction.save.to_object.to_json
@@ -18,5 +16,11 @@ class BudgetMonitor < Sinatra::Application
       status 400
       transaction.errors.to_json
     end
+  end
+
+  post '/transaction/csv' do
+    content = params[:file][:tempfile].read
+    result = Service::IngCsvService.read_csv(content)
+    result.map{|r| r.to_object}.to_json
   end
 end

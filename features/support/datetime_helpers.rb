@@ -3,6 +3,6 @@ def convert_timestamp(timestamp)
   when 'now'
     @times[:now] || Time.now
   else
-    timestamp
+    Time.parse(timestamp)
   end
 end
