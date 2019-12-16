@@ -19,22 +19,18 @@ end
 Then(/^I expect the following transactions:$/) do |table|
   expected = to_transactions(table)
   actual = get_transactions
-  validate_transactions(expected, actual)
-end
-
-Then(/^I expect the result code (\d+)$/) do |result_code|
-  expect(last_response.status).to eq result_code.to_i
+  validate(expected, actual)
 end
 
 Then(/^I expect the result transaction:$/) do |table|
   expected = to_transactions(table)
   actual = JSON.parse(@post_result)
-  validate_transactions(expected, actual)
+  validate(expected, actual)
 end
 
-Then(/^I expect the generated ID to be a MD5 hash of the following fields:$/) do |table|
+Then(/^I expect the generated key to be a MD5 hash of the following fields:$/) do |table|
   received_transaction = JSON.parse(last_response.body)
-  actual_id = received_transaction.kind_of?(Array) ? received_transaction[0]['id'] : received_transaction['id']
+  actual_id = received_transaction.kind_of?(Array) ? received_transaction[0]['key'] : received_transaction['key']
   transaction = to_transactions(table).first
   expected_id = Digest::MD5.hexdigest("#{transaction['timestamp']}#{transaction['description']}#{transaction['amount']}")
   expect(expected_id).to eq(actual_id)

@@ -3,9 +3,11 @@ require 'digest'
 class Transaction < Sequel::Model
   plugin :validation_helpers
 
+  many_to_many :tags
+
   def before_save
     super
-    self.id = Digest::MD5.hexdigest("#{timestamp.utc.iso8601}#{description}#{amount}")
+    self.key = Digest::MD5.hexdigest("#{timestamp.utc.iso8601}#{description}#{amount}")
   end
 
   def validate
@@ -16,6 +18,7 @@ class Transaction < Sequel::Model
   def to_object
     {
         id: id,
+        key: key,
         timestamp: timestamp.utc.iso8601,
         description: description,
         sign: sign,

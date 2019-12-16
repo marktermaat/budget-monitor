@@ -1,4 +1,4 @@
-def validate_transactions(expected, actual)
+def validate(expected, actual)
   expected.each_with_index do |expected_transaction, index|
     expected_transaction.each do |key, value|
       actual_value = actual.kind_of?(Array) ? actual[index][key] : actual[key]

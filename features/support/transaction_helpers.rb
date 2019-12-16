@@ -6,7 +6,7 @@ def to_transactions(table)
     row_data = table.column_names.zip(row).map do |column_name, value|
       case column_name
       when 'Id'
-        ['id', value]
+        ['key', value]
       when 'Timestamp'
         ['timestamp', convert_timestamp(value).utc.iso8601]
       when 'Description'

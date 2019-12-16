@@ -1,4 +1,3 @@
-require 'sinatra'
 require 'json'
 
 class BudgetMonitor < Sinatra::Application
@@ -8,7 +7,8 @@ class BudgetMonitor < Sinatra::Application
 
   post '/transaction' do
     data = JSON.parse(request.body.read)
-    transaction = Transaction.new(data)
+    transaction = Transaction.new()
+    transaction.set_fields(data, ['timestamp', 'description', 'sign', 'amount'])
     if (transaction.valid?)
       status 200
       transaction.save.to_object.to_json

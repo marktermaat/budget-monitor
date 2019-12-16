@@ -12,6 +12,8 @@ class BudgetMonitor < Sinatra::Application
   end
 
   error do |e|
+    puts e.inspect
+    puts e.backtrace.join("\n")
     halt 500, "Something went wrong: #{e.inspect}"
   end
 end

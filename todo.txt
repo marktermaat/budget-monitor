@@ -1,4 +1,6 @@
-- Clean up controllers
+- PUT rules
+- DELETE rules
+- Calculate tags for transactions using rules (service that can be called directly from a test)
 
 
 Links:
