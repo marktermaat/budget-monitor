@@ -1,8 +1,11 @@
 module Service
-  class NewRuleService
-    def self.create_rule(data)
+  class UpdateRuleService
+    def self.update_rule(id, data)
+      rule = Rule.find(id: id)
+      halt 404, "Rule #{id} not found" if rule.nil?
+
       tag = find_or_create_tag(data)
-      rule = Rule.new({pattern: data['pattern'], tag_id: tag.id})
+      rule.set(pattern: data['pattern'], tag_id: tag.id)
     end
 
     private

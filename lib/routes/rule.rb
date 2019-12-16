@@ -16,4 +16,16 @@ class BudgetMonitor < Sinatra::Application
       rule.errors.to_json
     end
   end
+
+  put '/rule/:id' do
+    data = JSON.parse(request.body.read)
+    rule = Service::UpdateRuleService.update_rule(params['id'], data)
+    if (rule.valid?)
+      status 200
+      rule.save.to_object.to_json
+    else
+      status 400
+      rule.errors.to_json
+    end
+  end
 end

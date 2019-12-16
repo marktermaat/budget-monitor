@@ -2,6 +2,10 @@ Given(/^the following rules:$/) do |table|
   to_rules(table).each(&method(:save_rule))
 end
 
+Given(/^I update the following rule:$/) do |table|
+  to_rules(table).each(&method(:update_rule))
+end
+
 When(/^I request all rules$/) do
   get_rules
 end

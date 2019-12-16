@@ -28,6 +28,11 @@ def save_rule(rule)
   r.save
 end
 
+def update_rule(rule)
+  put "/rule/#{rule['id']}", rule.to_json
+  @post_result = last_response.body
+end
+
 def post_rule(rule)
   post '/rule', rule.to_json
   @post_result = last_response.body
