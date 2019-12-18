@@ -2,7 +2,7 @@ module Service
   class UpdateRuleService
     def self.update_rule(id, data)
       rule = Rule.find(id: id)
-      halt 404, "Rule #{id} not found" if rule.nil?
+      raise NotFoundError.new("Rule #{id} not found") if rule.nil?
 
       tag = find_or_create_tag(data)
       rule.set(pattern: data['pattern'], tag_id: tag.id)
@@ -17,7 +17,7 @@ module Service
       elsif !data['tag_name'].nil?
         Tag.new(name: data['tag_name']).save
       else
-        halt 400, "missing tag_id or tag_name"
+        raise BadRequestError.new('missing tag_id or tag_name')
       end
     end
   end

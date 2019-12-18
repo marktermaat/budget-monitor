@@ -20,12 +20,21 @@ class BudgetMonitor < Sinatra::Application
   put '/rule/:id' do
     data = JSON.parse(request.body.read)
     rule = Service::UpdateRuleService.update_rule(params['id'], data)
-    if (rule.valid?)
+    if rule.valid?
       status 200
       rule.save.to_object.to_json
     else
       status 400
       rule.errors.to_json
+    end
+  end
+
+  delete '/rule/:id' do
+    rule = Rule.find(id: params['id'])
+    if !rule.nil?
+      rule.delete
+    else
+      raise NotFoundError.new("Rule #{params['id']} not found.")
     end
   end
 end

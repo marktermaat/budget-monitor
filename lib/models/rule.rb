@@ -10,10 +10,10 @@ class Rule < Sequel::Model
 
   def to_object
     {
-        id: id,
-        pattern: pattern,
-        tag_id: tag_id,
-        tag_name: tag.name
+        'id' => id,
+        'pattern' => pattern,
+        'tag_id' => tag_id,
+        'tag_name' => tag.name
     }
   end
 end

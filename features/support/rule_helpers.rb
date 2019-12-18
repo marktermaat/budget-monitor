@@ -42,3 +42,11 @@ def get_rules
   get '/rule'
   JSON.parse(last_response.body)
 end
+
+def get_db_rules
+  Rule.all.map { |r| r.to_object }
+end
+
+def delete_rule(rule_id)
+  delete "/rule/#{rule_id}"
+end

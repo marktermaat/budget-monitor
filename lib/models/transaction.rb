@@ -17,12 +17,12 @@ class Transaction < Sequel::Model
 
   def to_object
     {
-        id: id,
-        key: key,
-        timestamp: timestamp.utc.iso8601,
-        description: description,
-        sign: sign,
-        amount: amount.round(2)
+        'id' => id,
+        'key' => key,
+        'timestamp' => timestamp.utc.iso8601,
+        'description' => description,
+        'sign' => sign,
+        'amount' => amount.round(2)
     }
   end
 end

@@ -11,8 +11,8 @@ class Tag < Sequel::Model
 
   def to_object
     {
-        id: id,
-        name: name
+        'id' => id,
+        'name' => name
     }
   end
 end

@@ -1,4 +1,4 @@
-Feature: Rules can be getted
+Feature: Rules can be updated
 
   Scenario: Updating pattern
     Given the following tags:
@@ -8,11 +8,10 @@ Feature: Rules can be getted
     And the following rules:
       | Id | Pattern     | Tag Id |
       | 2  | supermarket | 1      |
-    And I update the following rule:
+    When I update the following rule:
       | Id | Pattern     | Tag Id |
       | 2  | new pattern | 1      |
-    When I request all rules
-    And I expect the following rules:
+    Then I expect the following rules in the database:
       | Id | Pattern     | Tag Id | Tag Name |
       | 2  | new pattern | 1      | tag1     |
 
@@ -24,10 +23,15 @@ Feature: Rules can be getted
     And the following rules:
       | Id | Pattern     | Tag Id |
       | 2  | supermarket | 1      |
-    And I update the following rule:
+    When I update the following rule:
       | Id | Pattern     | Tag Id |
       | 2  | supermarket | 2      |
-    When I request all rules
-    And I expect the following rules:
+    Then I expect the following rules in the database:
       | Id | Pattern     | Tag Id | Tag Name |
       | 2  | supermarket | 2      | tag2     |
+
+  Scenario: Unknown rule
+    When I update the following rule:
+      | Id | Pattern     | Tag Id |
+      | 1  | supermarket | 2      |
+    Then I expect the result code 404

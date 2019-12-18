@@ -11,6 +11,14 @@ class BudgetMonitor < Sinatra::Application
     halt 400, e.message
   end
 
+  error NotFoundError do |e|
+    halt 404, e.message
+  end
+
+  error BadRequestError do |e|
+    halt 400, e.message
+  end
+
   error do |e|
     puts e.inspect
     puts e.backtrace.join("\n")
