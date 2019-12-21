@@ -3,7 +3,7 @@ require 'digest'
 class Transaction < Sequel::Model
   plugin :validation_helpers
 
-  many_to_many :tags
+  many_to_many :tags, join_table: :transaction_tags
 
   def before_save
     super
