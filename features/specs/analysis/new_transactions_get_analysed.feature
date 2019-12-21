@@ -9,8 +9,8 @@ Feature: New transactions get analysed
       | Id | Pattern     | Tag Id |
       | 2  | supermarket | 1      |
     When I post the following transactions:
-      | Timestamp | Description              | Sign | Amount |
-      | now       | Visit to the supermarket | plus | 100    |
+      | Timestamp | Description              | Account | Sign | Amount |
+      | now       | Visit to the supermarket | Ing1    | plus | 100    |
     Then I expect the following tagged transactions:
       | Transaction Id | Tag Id |
       | latest         | 1      |
@@ -26,7 +26,7 @@ Feature: New transactions get analysed
     When I post the following transactions as csv:
       | lines |
       | "Datum","Naam / Omschrijving","Rekening","Tegenrekening","Code","Af Bij","Bedrag (EUR)","MutatieSoort","Mededelingen" |
-      | "20181113","Visit to the supermarket","NL58INGB001","","BA","Af","50,11","Betaalautomaat","Transactie:G200A1 Term:AAAA1" |
+      | "20181113","Visit to the supermarket","NL58INGB001","NL58INGB002","BA","Af","50,11","Betaalautomaat","Transactie:G200A1 Term:AAAA1" |
     Then I expect the following tagged transactions:
       | Transaction Id | Tag Id |
       | latest         | 1      |

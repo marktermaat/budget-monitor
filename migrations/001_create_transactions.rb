@@ -5,6 +5,7 @@ Sequel.migration do
       String :key, null: false, unique: true
       DateTime :timestamp, null: false
       String :description
+      String :account
       String :sign, size: 5
       Float :amount
     end

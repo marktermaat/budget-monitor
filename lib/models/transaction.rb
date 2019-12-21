@@ -12,7 +12,7 @@ class Transaction < Sequel::Model
 
   def validate
     super
-    validates_presence [:timestamp, :description, :sign, :amount]
+    validates_presence [:timestamp, :description, :account, :sign, :amount]
   end
 
   def to_object
@@ -21,6 +21,7 @@ class Transaction < Sequel::Model
         'key' => key,
         'timestamp' => timestamp.utc.iso8601,
         'description' => description,
+        'account' => account,
         'sign' => sign,
         'amount' => amount.round(2)
     }

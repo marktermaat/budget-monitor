@@ -11,6 +11,8 @@ def to_transactions(table)
         ['timestamp', convert_timestamp(value).utc.iso8601]
       when 'Description'
         ['description', value]
+      when 'Account'
+        ['account', value]
       when 'Sign'
         ['sign', value]
       when 'Amount'
