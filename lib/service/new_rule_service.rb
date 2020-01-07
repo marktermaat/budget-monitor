@@ -12,7 +12,12 @@ module Service
         result = Tag.find(id: data['tag_id'])
         result
       elsif !data['tag_name'].nil?
-        Tag.new(name: data['tag_name']).save
+        existing_tag = Tag.where(name: data['tag_name'])
+        if existing_tag.empty?
+          Tag.new(name: data['tag_name']).save
+        else
+          existing_tag.first
+        end
       else
         halt 400, "missing tag_id or tag_name"
       end

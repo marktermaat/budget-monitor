@@ -5,14 +5,9 @@ class Transaction < Sequel::Model
 
   many_to_many :tags, join_table: :transaction_tags
 
-  def before_save
-    super
-    self.key = Digest::MD5.hexdigest("#{timestamp.utc.iso8601}#{description}#{amount}")
-  end
-
   def validate
     super
-    validates_presence [:timestamp, :description, :account, :sign, :amount]
+    validates_presence [:timestamp, :description, :sign, :amount]
   end
 
   def to_object

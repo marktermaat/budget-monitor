@@ -29,7 +29,7 @@ Then(/^I expect the result transaction:$/) do |table|
 end
 
 Then(/^I expect the generated key to be a MD5 hash of the following fields:$/) do |table|
-  received_transaction = JSON.parse(last_response.body)
+  received_transaction = get_transactions
   actual_id = received_transaction.kind_of?(Array) ? received_transaction[0]['key'] : received_transaction['key']
   transaction = to_transactions(table).first
   expected_id = Digest::MD5.hexdigest("#{transaction['timestamp']}#{transaction['description']}#{transaction['amount']}")

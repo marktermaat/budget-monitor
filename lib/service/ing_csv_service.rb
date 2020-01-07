@@ -8,7 +8,7 @@ module Service
       table = CSV.parse(content, col_sep: COLUMN_SEPARATOR, headers: true)
       table.map do |row|
         transaction = Transaction.new(transaction_hash(row))
-        transaction.save
+        Service::SaveTransactionService.save(transaction)
       end
     end
 

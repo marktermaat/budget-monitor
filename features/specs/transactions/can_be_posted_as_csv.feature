@@ -7,7 +7,7 @@ Feature: Transactions can be posted as CSV
       | "Datum","Naam / Omschrijving","Rekening","Tegenrekening","Code","Af Bij","Bedrag (EUR)","MutatieSoort","Mededelingen" |
       | "20181113","ALBERT HEIJN","NL58INGB001","NL58INGB002","BA","Af","50,11","Betaalautomaat","" |
     Then I expect the result code 200
-    And I expect the result transaction:
+    And I expect the following transactions:
       | Timestamp            | Description  | Account     | Sign  | Amount   |
       | 2018-11-13T00:00:00Z | ALBERT HEIJN | NL58INGB002 | minus | 50.11    |
 
@@ -18,7 +18,7 @@ Feature: Transactions can be posted as CSV
       | "Datum","Naam / Omschrijving","Rekening","Tegenrekening","Code","Af Bij","Bedrag (EUR)","MutatieSoort","Mededelingen" |
       | "20181113","ALBERT HEIJN","NL58INGB001","NL58INGB002","BA","Af","50,11","Betaalautomaat","Transactie:G200A1 Term:AAAA1" |
     Then I expect the result code 200
-    And I expect the result transaction:
+    And I expect the following transactions:
       | Timestamp            | Description                               | Account     | Sign  | Amount   |
       | 2018-11-13T00:00:00Z | ALBERT HEIJN Transactie:G200A1 Term:AAAA1 | NL58INGB002 | minus | 50.11    |
 
@@ -27,7 +27,7 @@ Feature: Transactions can be posted as CSV
     When I post the following transactions as csv:
       | lines |
       | "Datum","Naam / Omschrijving","Rekening","Tegenrekening","Code","Af Bij","Bedrag (EUR)","MutatieSoort","Mededelingen" |
-      | "20181113",,"","","BA","Af","50,11","Betaalautomaat","Transactie:G200A1 Term:AAAA1" |
+      | "20181113",,"","","BA","Af","50,11","Betaalautomaat", |
     Then I expect the result code 400
 
   Scenario: Keys are generated

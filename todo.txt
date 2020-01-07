@@ -1,7 +1,5 @@
-- PUT rules
-- DELETE rules
-- Calculate tags for transactions using rules (service that can be called directly from a test)
-
+- Clean up code in ui_api controllers
+- Add specs for ui_api controllers
 
 Links:
  - Example: https://github.com/idanci/sinatra-sequel-poc

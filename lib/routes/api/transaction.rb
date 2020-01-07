@@ -11,7 +11,7 @@ class BudgetMonitor < Sinatra::Application
     transaction.set_fields(data, ['timestamp', 'description', 'account', 'sign', 'amount'])
     if (transaction.valid?)
       status 200
-      result = transaction.save.to_object.to_json
+      result = Service::SaveTransactionService.save(transaction).to_object.to_json
       Service::TransactionAnalysisService.analyse
       result
     else
@@ -22,8 +22,7 @@ class BudgetMonitor < Sinatra::Application
 
   post '/transaction/csv' do
     content = params[:file][:tempfile].read
-    result = Service::IngCsvService.read_csv(content)
+    Service::IngCsvService.read_csv(content)
     Service::TransactionAnalysisService.analyse
-    result.map{|r| r.to_object}.to_json
   end
 end
