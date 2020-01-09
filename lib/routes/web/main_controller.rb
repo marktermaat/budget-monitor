@@ -4,7 +4,12 @@ class BudgetMonitor < Sinatra::Application
   end
 
   get '/rules' do
-    erb :rules
+    rules = Rule.order(:tag_id, :pattern).map { |r| r.to_object }
+    erb :'rules/index', locals: { rules: rules }
+  end
+
+  get '/rules/new' do
+    erb :'rules/new'
   end
 
   get '/import' do

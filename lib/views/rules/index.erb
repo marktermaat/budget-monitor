@@ -1,0 +1,18 @@
+<a class="btn btn-primary m-2" href="/rules/new" role="button">Add rule</a>
+
+<table class="table table-sm">
+  <thead>
+  <tr>
+    <th scope="col">Tag</th>
+    <th scope="col">Pattern</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% rules.each do |rule| %>
+    <tr>
+      <th><%= rule['tag_name'] %></th>
+      <th><%= rule['pattern'] %></th>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -11,17 +11,18 @@
 <nav class="navbar navbar-light bg-light">
   <ul class="nav nav-pills">
     <li class="nav-item">
-      <a class="nav-link <%= 'active' if request.path_info  == '/' %>" href="/">Dashboard</a>
+      <a class="nav-link <%= 'active' if request.path_info == '/' %>" href="/">Dashboard</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link <%= 'active' if request.path_info  == '/rules' %>" href="/rules">Rules</a>
+      <a class="nav-link <%= 'active' if request.path_info.start_with?('/rules') %>" href="/rules">Rules</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link <%= 'active' if request.path_info  == '/import' %>" href="/import">Import</a>
+      <a class="nav-link <%= 'active' if request.path_info.start_with?('/import') %>" href="/import">Import</a>
     </li>
   </ul>
   Budget Monitor
 </nav>
+<br>
 
 <%= yield %>
 
