@@ -1,5 +1,8 @@
 - Clean up code in ui_api controllers
 - Add specs for ui_api controllers
+- Add Bootstrap, and clean up front-end code
+  - https://stackoverflow.com/questions/5636821/including-local-js-and-css-files-in-local-sinatra-development
+
 
 Links:
  - Example: https://github.com/idanci/sinatra-sequel-poc
