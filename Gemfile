@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "sinatra", "~> 2.0.8.1"
 gem 'sinatra-contrib', '~> 2.0.8.1'
+gem "rack", "~> 2.0.8"
 gem 'sequel_pg', '~> 1.6', '>= 1.6.13'
 
 group :test do
