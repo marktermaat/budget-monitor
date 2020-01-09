@@ -7,7 +7,7 @@ class BudgetMonitor < Sinatra::Application
     labels = transactions_per_month.keys.reverse.map { |d| d.strftime('%Y-%m') }
     datasets = []
 
-    colours = ['#000075', '#4363d8', '#42d4f4', '#469990', '#3cb44b', '#aaffc3', '#bfef45', '#ffe119', '#808000', '#fffac8', '#f58231', '#9A6324', '#ffd8b1', '#e6194B', '#800000', '#fabebe', '#911eb4', '#e6beff', '#f032e6']
+    colours = ['#000075', '#f58231', '#4363d8', '#fffac8', '#42d4f4', '#9A6324', '#469990', '#f032e6', '#3cb44b', '#aaffc3', '#bfef45', '#ffe119', '#808000', '#ffd8b1', '#e6194B', '#800000', '#fabebe', '#911eb4', '#e6beff']
 
     datasets <<
       {

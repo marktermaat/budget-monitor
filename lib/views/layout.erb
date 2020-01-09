@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Budget Monitor</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="app.js" type="text/javascript"></script>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if request.path_info  == '/' %>" href="/">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if request.path_info  == '/rules' %>" href="/rules">Rules</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if request.path_info  == '/import' %>" href="/import">Import</a>
+    </li>
+  </ul>
+  Budget Monitor
+</nav>
+
+<%= yield %>
+
+</body>
+</html>
