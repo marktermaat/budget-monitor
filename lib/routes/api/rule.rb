@@ -10,7 +10,9 @@ class BudgetMonitor < Sinatra::Application
     rule = Service::NewRuleService.create_rule(data)
     if (rule.valid?)
       status 200
-      rule.save.to_object.to_json
+      result = rule.save.to_object.to_json
+      Service::TransactionAnalysisService.analyse
+      result
     else
       status 400
       rule.errors.to_json
@@ -22,7 +24,9 @@ class BudgetMonitor < Sinatra::Application
     rule = Service::UpdateRuleService.update_rule(params['id'], data)
     if rule.valid?
       status 200
-      rule.save.to_object.to_json
+      result = rule.save.to_object.to_json
+      Service::TransactionAnalysisService.analyse
+      result
     else
       status 400
       rule.errors.to_json
@@ -33,8 +37,30 @@ class BudgetMonitor < Sinatra::Application
     rule = Rule.find(id: params['id'])
     if !rule.nil?
       rule.delete
+      Service::TransactionAnalysisService.analyse
     else
       raise NotFoundError.new("Rule #{params['id']} not found.")
     end
+    200
+  end
+
+  get '/rule/test' do
+    pattern = params[:pattern]
+    return [].to_json if pattern.nil? || pattern.empty?
+
+    regex = Regexp.new(pattern.downcase)
+    tagged_results = Transaction
+                         .left_join(:transaction_tags, transaction_id: :id)
+                         .exclude(tag_id: nil)
+                         .all
+                         .select {|t| t.description.downcase.match(regex) || t.account.downcase.match(regex)}
+                         .count;
+    untagged_results = Transaction
+        .left_join(:transaction_tags, transaction_id: :id)
+        .where(tag_id: nil)
+        .all
+        .select {|t| t.description.match(regex) || t.account.match(regex)}
+        .map {|t| t.to_object}
+    {no_tagged_results: tagged_results, results: untagged_results}.to_json
   end
 end

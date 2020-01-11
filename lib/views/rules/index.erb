@@ -5,6 +5,7 @@
   <tr>
     <th scope="col">Tag</th>
     <th scope="col">Pattern</th>
+    <th scope="col"></th>
   </tr>
   </thead>
   <tbody>
@@ -12,6 +13,7 @@
     <tr>
       <th><%= rule['tag_name'] %></th>
       <th><%= rule['pattern'] %></th>
+      <th><a href="#" onclick="deleteTag(<%= rule['id'] %>)"><i class="fas fa-trash-alt"></i></a></th>
     </tr>
     <% end %>
   </tbody>

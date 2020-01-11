@@ -1,1 +1,23 @@
-New rule
+<div class="form-group">
+  <input id="pattern" type="text" class="form-control form-control-lg" placeholder="Enter pattern">
+</div>
+<div class="form-group row">
+  <label for="tag" class="col-sm-1 col-form-label">Tag</label>
+  <input type="text" class="form-text" id="tag" placeholder="Tag">
+</div>
+<button id="test-pattern" class="btn btn-primary m-2">Test</button>
+<button id="submit-pattern" class="btn btn-primary m-2">Submit</button>
+
+<div class="mt-5">
+  <span id="result-summary"></span>
+  <table class="table table-sm">
+    <tbody id="test-results">
+    </tbody>
+  </table>
+</div>
+
+<script>
+    window.onload = function() {
+        initNewRulePage();
+    };
+</script>
