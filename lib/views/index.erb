@@ -1,4 +1,34 @@
 <button id="hide-all-labels" class="btn btn-primary m-2">Hide all</button>
+
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="col-form-label col-sm-3">Period</label>
+  <label class="btn btn-secondary active js-period" id="period_all">
+    <input type="radio" name="options" autocomplete="off" checked onclick="setPeriod('all');"> All
+  </label>
+  <label class="btn btn-secondary js-period" id="period_three_year">
+    <input type="radio" name="options" autocomplete="off" onclick="setPeriod('three_year');"> 3 years
+  </label>
+  <label class="btn btn-secondary js-period" id="period_year">
+    <input type="radio" name="options" autocomplete="off" onclick="setPeriod('year');"> 1 year
+  </label>
+</div>
+
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="col-form-label col-sm-3">Granularity</label>
+  <label class="btn btn-secondary js-granularity" id="granularity_year">
+    <input type="radio" name="options" autocomplete="off" onclick="setGranularity('year');"> Year
+  </label>
+  <label class="btn btn-secondary js-granularity" id="granularity_three_month">
+    <input type="radio" name="options" autocomplete="off" onclick="setGranularity('three_month');"> 3 months
+  </label>
+  <label class="btn btn-secondary js-granularity active" id="granularity_month">
+    <input type="radio" name="options" autocomplete="off" onclick="setGranularity('month');"> month
+  </label>
+  <label class="btn btn-secondary js-granularity" id="granularity_week">
+    <input type="radio" name="options" autocomplete="off" onclick="setGranularity('week');"> week
+  </label>
+</div>
+
 <canvas id="budget-chart" width="1600" height="600"></canvas>
 
 <br><br>
@@ -7,8 +37,8 @@
 </table>
 
 <script>
-  window.onload = function() {
-    initChart();
-    initUntaggedTransactions();
-  };
+    window.onload = function() {
+        initChart();
+        initUntaggedTransactions();
+    };
 </script>

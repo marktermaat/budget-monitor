@@ -2,10 +2,10 @@ require 'json'
 
 class BudgetMonitor < Sinatra::Application
   get '/ui/api/chart' do
-    granularity = params[:granularity] || :month
-    period = params[:period] || :all
+    granularity = params['granularity'].to_sym || :month
+    period = params['period'].to_sym || :all
     start_time, end_time = get_period_times(period)
-    transactions_per_month = Transaction.where{(timestamp >= start_time) & (timestamp < end_time)}.eager(:tags).order(Sequel.desc(:timestamp)).all.group_by {|t| bucket_data(t.timestamp, granularity) }
+    transactions_per_month = Transaction.where{(timestamp >= start_time) & (timestamp < end_time)}.eager_graph(:tags).order(Sequel.desc(:timestamp)).all.group_by {|t| bucket_data(t.timestamp, granularity) }
 
     labels = transactions_per_month.keys.reverse
     datasets = []
