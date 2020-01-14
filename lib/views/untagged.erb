@@ -1,0 +1,18 @@
+<table class="table table-sm table-striped ">
+  <thead>
+  <tr>
+    <th scope="col">Description</th>
+    <th scope="col">Account</th>
+    <th scope="col">Amount</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% transactions.each do |transaction| %>
+    <tr>
+      <th><%= transaction[:description] %></th>
+      <th><%= transaction[:account] %></th>
+      <th><%= transaction[:amount] %></th>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

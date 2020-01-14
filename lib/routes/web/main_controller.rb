@@ -15,4 +15,17 @@ class BudgetMonitor < Sinatra::Application
   get '/import' do
     erb :import
   end
+
+  get '/untagged' do
+    transactions = Transaction
+        .eager_graph(:tags)
+        .all
+        .select {|t| t.tags.empty?}
+        .select {|t| t.sign == 'minus'}
+        .sort_by {|t| t.amount}
+        .reverse
+        .take(100)
+    puts transactions.inspect
+    erb :untagged, locals: { transactions: transactions }
+  end
 end
