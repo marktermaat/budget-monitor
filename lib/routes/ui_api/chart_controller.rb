@@ -42,6 +42,25 @@ class BudgetMonitor < Sinatra::Application
     {labels: labels, datasets: datasets}.to_json
   end
 
+  get '/ui/api/chart/details' do
+    label = params['label']
+    tag = params['tag']
+    granularity = params['granularity'].to_sym || :month
+    period = params['period'].to_sym || :all
+    start_time, end_time = get_period_times(period)
+
+    tag_id = Tag.find(name: tag).id
+    transactions_per_month = Transaction.where{(timestamp >= start_time) & (timestamp < end_time)}.eager_graph(:tags).order(Sequel.desc(:timestamp)).all.group_by {|t| bucket_data(t.timestamp, granularity) }
+    puts transactions_per_month[label].inspect
+    puts tag_id
+    transactions = transactions_per_month[label].select {|t| t.sign == 'minus' && t.tags.first&.id == tag_id}
+
+    puts label.inspect
+    puts transactions_per_month[label].map {|t| t.tags.first&.id}.select{|t| t == 89}.inspect
+    puts transactions.inspect
+    transactions.map { |t| t.to_object }.to_json
+  end
+
   def bucket_data(timestamp, granularity)
     case granularity
     when :year
