@@ -1,5 +1,5 @@
 When(/^I run the analysis$/) do
-  Service::TransactionAnalysisService.analyse
+  AnalyseTransactionsJob.new.perform
 end
 
 Then(/^I expect the following tagged transactions:$/) do |table|

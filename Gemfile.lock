@@ -3,6 +3,7 @@ GEM
   specs:
     backports (3.15.0)
     builder (3.2.3)
+    concurrent-ruby (1.1.5)
     cucumber (2.99.0)
       builder (>= 2.1.2)
       cucumber-core (~> 1.5.0)
@@ -56,6 +57,8 @@ GEM
       rack-protection (= 2.0.8.1)
       sinatra (= 2.0.8.1)
       tilt (~> 2.0)
+    sucker_punch (2.1.2)
+      concurrent-ruby (~> 1.0)
     tilt (2.0.10)
 
 PLATFORMS
@@ -69,6 +72,7 @@ DEPENDENCIES
   sequel_pg (~> 1.6, >= 1.6.13)
   sinatra (~> 2.0.8.1)
   sinatra-contrib (~> 2.0.8.1)
+  sucker_punch (~> 2.0, >= 2.0.4)
 
 BUNDLED WITH
    1.17.2

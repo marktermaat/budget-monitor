@@ -12,7 +12,7 @@ class BudgetMonitor < Sinatra::Application
     if (transaction.valid?)
       status 200
       result = Service::SaveTransactionService.save(transaction).to_object.to_json
-      Service::TransactionAnalysisService.analyse
+      AnalyseTransactionsJob.perform_async
       result
     else
       status 400
@@ -23,6 +23,6 @@ class BudgetMonitor < Sinatra::Application
   post '/transaction/csv' do
     content = params[:file][:tempfile].read
     Service::IngCsvService.read_csv(content)
-    Service::TransactionAnalysisService.analyse
+    AnalyseTransactionsJob.perform_async
   end
 end

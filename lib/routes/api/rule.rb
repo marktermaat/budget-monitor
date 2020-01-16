@@ -11,7 +11,7 @@ class BudgetMonitor < Sinatra::Application
     if (rule.valid?)
       status 200
       result = rule.save.to_object.to_json
-      Service::TransactionAnalysisService.analyse
+      AnalyseTransactionsJob.perform_async
       result
     else
       status 400
@@ -25,7 +25,7 @@ class BudgetMonitor < Sinatra::Application
     if rule.valid?
       status 200
       result = rule.save.to_object.to_json
-      Service::TransactionAnalysisService.analyse
+      AnalyseTransactionsJob.perform_async
       result
     else
       status 400
@@ -37,7 +37,7 @@ class BudgetMonitor < Sinatra::Application
     rule = Rule.find(id: params['id'])
     if !rule.nil?
       rule.delete
-      Service::TransactionAnalysisService.analyse
+      AnalyseTransactionsJob.perform_async
     else
       raise NotFoundError.new("Rule #{params['id']} not found.")
     end

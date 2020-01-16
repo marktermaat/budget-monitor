@@ -1,5 +1,6 @@
 require 'sequel'
 require 'logger'
+require 'sucker_punch'
 
 default_connection_string = 'postgres://localhost/budget_monitor'
 DB = Sequel.connect(ENV["DATABASE_URL"] || default_connection_string)

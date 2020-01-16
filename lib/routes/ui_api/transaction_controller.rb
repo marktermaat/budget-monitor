@@ -11,4 +11,8 @@ class BudgetMonitor < Sinatra::Application
       .map {|t| t.to_object}
       .to_json
   end
+
+  post '/ui/api/analyse_transactions' do
+    AnalyseTransactionsJob.perform_async
+  end
 end
