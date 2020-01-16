@@ -18,6 +18,9 @@
       <a class="nav-link <%= 'active' if request.path_info.start_with?('/rules') %>" href="/rules">Rules</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link <%= 'active' if request.path_info.start_with?('/tags') %>" href="/tags">Tags</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link <%= 'active' if request.path_info.start_with?('/untagged') %>" href="/untagged">Untagged</a>
     </li>
     <li class="nav-item">

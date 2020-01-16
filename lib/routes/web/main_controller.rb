@@ -12,6 +12,11 @@ class BudgetMonitor < Sinatra::Application
     erb :'rules/new'
   end
 
+  get '/tags' do
+    tags = Tag.all.map {|t| t.to_object}
+    erb :tags, locals: { tags: tags }
+  end
+
   get '/import' do
     erb :import
   end

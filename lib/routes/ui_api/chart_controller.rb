@@ -49,16 +49,14 @@ class BudgetMonitor < Sinatra::Application
     period = params['period'].to_sym || :all
     start_time, end_time = get_period_times(period)
 
-    tag_id = Tag.find(name: tag).id
+    tag_id = Tag.find(name: tag)&.id
     transactions_per_month = Transaction.where{(timestamp >= start_time) & (timestamp < end_time)}.eager_graph(:tags).order(Sequel.desc(:timestamp)).all.group_by {|t| bucket_data(t.timestamp, granularity) }
-    puts transactions_per_month[label].inspect
-    puts tag_id
-    transactions = transactions_per_month[label].select {|t| t.sign == 'minus' && t.tags.first&.id == tag_id}
+    transactions = transactions_per_month[label]
+                       .select {|t| t.sign == 'minus' && t.tags.first&.id == tag_id}
+                       .sort_by {|t| t.amount}
+                       .reverse
 
-    puts label.inspect
-    puts transactions_per_month[label].map {|t| t.tags.first&.id}.select{|t| t == 89}.inspect
-    puts transactions.inspect
-    transactions.map { |t| t.to_object }.to_json
+    { label: label, tag: tag, total: transactions.sum {|t| t.amount}.round(2), transactions: transactions.map { |t| t.to_object } }.to_json
   end
 
   def bucket_data(timestamp, granularity)

@@ -1,0 +1,16 @@
+<table class="table table-sm">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+    <% tags.each do |rule| %>
+    <tr>
+      <th><%= rule['name'] %></th>
+      <th><a href="#" onclick="deleteTag(<%= rule['id'] %>)"><i class="fas fa-trash-alt"></i></a></th>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
