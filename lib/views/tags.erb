@@ -6,10 +6,10 @@
   </tr>
   </thead>
   <tbody>
-    <% tags.each do |rule| %>
+    <% tags.each do |tag| %>
     <tr>
-      <th><%= rule['name'] %></th>
-      <th><a href="#" onclick="deleteTag(<%= rule['id'] %>)"><i class="fas fa-trash-alt"></i></a></th>
+      <th><%= tag['name'] %></th>
+      <th><a href="/tags/<%= tag['id'] %>/delete" onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></a></th>
     </tr>
     <% end %>
   </tbody>

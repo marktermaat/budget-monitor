@@ -14,7 +14,7 @@
     <tr>
       <th><%= rule['tag_name'] %></th>
       <th><%= rule['pattern'] %></th>
-      <th><a href="#" onclick="deleteRule(<%= rule['id'] %>)"><i class="fas fa-trash-alt"></i></a></th>
+      <th><a href="/rules/<%= rule['id'] %>/delete" onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></a></th>
     </tr>
     <% end %>
   </tbody>

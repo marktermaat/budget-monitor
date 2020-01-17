@@ -30,6 +30,16 @@
   Budget Monitor
 </nav>
 <br>
+<% if !@flash_error.nil? %>
+  <div class="alert alert-danger" role="alert">
+    <%= @flash_error %>
+  </div>
+<% end %>
+<% if !@flash.nil? %>
+  <div class="alert alert-success" role="alert">
+    <%= @flash %>
+  </div>
+<% end %>
 
 <%= yield %>
 

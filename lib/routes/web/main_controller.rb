@@ -12,6 +12,31 @@ class BudgetMonitor < Sinatra::Application
     erb :'rules/new'
   end
 
+  get '/rules/:id/delete' do
+    rule = Rule.find(id: params['id'])
+    if !rule.nil?
+      rule.delete
+      AnalyseTransactionsJob.perform_async
+      message = "flash=Rule deleted."
+    else
+      message = "flash_error=Rule not found"
+    end
+    redirect "/rules?#{message}"
+  end
+
+  get '/tags/:id/delete' do
+    # Delete tag if no rules are linked to it.
+    # Also, show number or rules on tags page
+    tag = Tag.find(id: params[:id])
+    if tag.rules.empty?
+      tag.destroy
+      message = "flash=Tag removed."
+    else
+      message = "flash_error=Tag could not be deleted, it still has rules."
+    end
+    redirect "/tags?#{message}"
+  end
+
   get '/tags' do
     tags = Tag.all.map {|t| t.to_object}
     erb :tags, locals: { tags: tags }

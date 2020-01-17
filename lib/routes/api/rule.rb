@@ -33,17 +33,6 @@ class BudgetMonitor < Sinatra::Application
     end
   end
 
-  delete '/rule/:id' do
-    rule = Rule.find(id: params['id'])
-    if !rule.nil?
-      rule.delete
-      AnalyseTransactionsJob.perform_async
-    else
-      raise NotFoundError.new("Rule #{params['id']} not found.")
-    end
-    200
-  end
-
   get '/rule/test' do
     pattern = params[:pattern]
     return [].to_json if pattern.nil? || pattern.empty?
