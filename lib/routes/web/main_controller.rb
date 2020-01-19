@@ -17,11 +17,11 @@ class BudgetMonitor < Sinatra::Application
     if !rule.nil?
       rule.delete
       AnalyseTransactionsJob.perform_async
-      message = "flash=Rule deleted."
+      flash[:success] = 'Rule deleted'
     else
-      message = "flash_error=Rule not found"
+      flash[:error] = 'Rule not found'
     end
-    redirect "/rules?#{message}"
+    redirect "/rules"
   end
 
   get '/tags/:id/delete' do
@@ -30,11 +30,11 @@ class BudgetMonitor < Sinatra::Application
     tag = Tag.find(id: params[:id])
     if tag.rules.empty?
       tag.destroy
-      message = "flash=Tag removed."
+      flash[:success] = 'Tag deleted'
     else
-      message = "flash_error=Tag could not be deleted, it still has rules."
+      flash[:error] = 'Tag could not be deleted, it still has rules.'
     end
-    redirect "/tags?#{message}"
+    redirect "/tags"
   end
 
   get '/tags' do

@@ -57,6 +57,8 @@ GEM
       rack-protection (= 2.0.8.1)
       sinatra (= 2.0.8.1)
       tilt (~> 2.0)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
     sucker_punch (2.1.2)
       concurrent-ruby (~> 1.0)
     tilt (2.0.10)
@@ -72,6 +74,7 @@ DEPENDENCIES
   sequel_pg (~> 1.6, >= 1.6.13)
   sinatra (~> 2.0.8.1)
   sinatra-contrib (~> 2.0.8.1)
+  sinatra-flash (~> 0.3.0)
   sucker_punch (~> 2.0, >= 2.0.4)
 
 BUNDLED WITH

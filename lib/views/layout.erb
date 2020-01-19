@@ -30,14 +30,14 @@
   Budget Monitor
 </nav>
 <br>
-<% if !@flash_error.nil? %>
+<% if flash.has_key?(:error) %>
   <div class="alert alert-danger" role="alert">
-    <%= @flash_error %>
+    <%= flash[:error] %>
   </div>
 <% end %>
-<% if !@flash.nil? %>
+<% if flash.has_key?(:success) %>
   <div class="alert alert-success" role="alert">
-    <%= @flash %>
+    <%= flash[:success] %>
   </div>
 <% end %>
 
